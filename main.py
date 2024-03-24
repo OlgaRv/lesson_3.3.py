@@ -21,6 +21,11 @@ target_x = random.randint(0, SCREEN_WIDTH- target_width)
 target_y = random.randint(0, SCREEN_HEIGTH-target_heigth)
 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
+# счетчик попыток попадания
+attempts = 0
+
+# шрифт для отображения текста
+font = pygame.font.Font(None, 36)
 
 running = True
 while running:
@@ -33,6 +38,7 @@ while running:
             if target_x<mouse_x<target_x + target_width and target_y<mouse_y<target_y + target_heigth:
                 target_x = random.randint(0, SCREEN_WIDTH - target_width)
                 target_y = random.randint(0, SCREEN_HEIGTH - target_heigth)
+                attempts +=1
 
     if direction == "right":
         target_x += target_speed
@@ -44,6 +50,10 @@ while running:
         if target_x == 0:
             target_x += target_speed
             direction = "right"
+
+    # вывод результата попыток попадания
+    text = font.render("ТАБЛО: " + str(attempts), True, (0,0, 0))
+    screen.blit(text, (10, 10))
 
     screen.blit(target_img, (target_x, target_y))
     pygame.display.update()
